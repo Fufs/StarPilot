@@ -106,7 +106,7 @@
         "parent_key": "AlwaysOnLateral"
       },
       {
-        "key": "PauseAOLOnBrake",
+        "key": "AlwaysOnLateralPauseOnBrakeSpeed",
         "label": "Pause on Brake Press Below",
         "description": "Pause \"Always On Lateral\" below the set speed while the brake pedal is pressed.",
         "data_type": "int",

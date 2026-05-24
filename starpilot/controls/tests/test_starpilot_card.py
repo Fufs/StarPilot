@@ -45,7 +45,7 @@ def make_toggles(**overrides):
   defaults = {
     "always_on_lateral_lkas": False,
     "always_on_lateral_main": False,
-    "always_on_lateral_pause_speed": 0.0,
+    "always_on_lateral_pause_on_brake_speed": 0.0,
     "bookmark_via_cancel": False,
     "bookmark_via_cancel_long": False,
     "bookmark_via_cancel_very_long": False,

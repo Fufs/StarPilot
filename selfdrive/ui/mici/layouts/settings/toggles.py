@@ -13,10 +13,23 @@ class TogglesLayoutMici(NavScroller):
   def __init__(self):
     super().__init__()
 
+    def convert_units(is_metric):
+      if ui_state.params.get_bool("IsMetric") == is_metric: return
+
+      distance_conversion = 1/3.28084 if is_metric else 3.28084
+      speed_conversion = 1.609344 if is_metric else 1/1.609344
+
+      # TODO: Probably more params need to be updated
+      ui_state.params.put_float("LaneDetectionWidth", ui_state.params.get_float("LaneDetectionWidth") * distance_conversion)
+
+      ui_state.params.put_int("MinimumLaneChangeSpeed", ui_state.params.get_int("MinimumLaneChangeSpeed") * speed_conversion)
+      ui_state.params.put_int("AlwaysOnLateralPauseOnBrakeSpeed", ui_state.params.get_int("AlwaysOnLateralPauseOnBrakeSpeed") * speed_conversion)
+      ui_state.params.put_int("PauseLateralSpeed", ui_state.params.get_int("PauseLateralSpeed") * speed_conversion)
+
     self._personality_toggle = BigMultiParamToggle("driving personality", "LongitudinalPersonality", ["aggressive", "standard", "relaxed"])
     self._safe_mode_btn = BigParamControl("safe mode", "SafeMode", toggle_callback=restart_needed_callback)
     self._experimental_btn = BigParamControl("experimental mode", "ExperimentalMode")
-    is_metric_toggle = BigParamControl("use metric units", "IsMetric")
+    is_metric_toggle = BigParamControl("use metric units", "IsMetric", toggle_callback=convert_units)
     ldw_toggle = BigParamControl("lane departure warnings", "IsLdwEnabled")
     always_on_dm_toggle = BigParamControl("always-on driver monitor", "AlwaysOnDM")
     record_front = BigParamControl("record & upload driver camera", "RecordFront", toggle_callback=restart_needed_callback)

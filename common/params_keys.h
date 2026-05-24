@@ -161,6 +161,7 @@ inline static std::unordered_map<std::string, ParamKeyAttributes> keys = {
     {"AlertVolumeControl", {PERSISTENT, BOOL, "0", "0", 2}},
     {"AlwaysOnLateral", {PERSISTENT, BOOL, "1", "0", 0}},
     {"AlwaysOnLateralLKAS", {PERSISTENT, BOOL, "1", "0", 2}},
+    {"AlwaysOnLateralPauseOnBrakeSpeed", {PERSISTENT, INT, "0", "0", 1}},
     {"ApiCache_DriveStats", {PERSISTENT, JSON, "{}", "{}"}},
     {"AutomaticallyDownloadModels", {PERSISTENT, BOOL, "1", "0", 1}},
     {"AutomaticUpdates", {PERSISTENT, BOOL, "1", "1", 0}},
@@ -420,7 +421,7 @@ inline static std::unordered_map<std::string, ParamKeyAttributes> keys = {
     {"PathEdgesColor", {PERSISTENT, STRING, "", "", 2}},
     {"PathEdgeWidth", {PERSISTENT, FLOAT, "20.0", "0.0", 2}},
     {"PathWidth", {PERSISTENT, FLOAT, "6.1", "5.9", 2}},
-    {"PauseAOLOnBrake", {PERSISTENT, BOOL, "0", "0", 1}},
+    {"PauseAOLOnBrake", {PERSISTENT, BOOL, "0", "0", 1}}, // DEPRECATED; Look AlwaysOnLateralPauseOnBrakeSpeed
     {"PauseLateralOnSignal", {PERSISTENT, BOOL, "0", "0", 1}},
     {"PauseLateralSpeed", {PERSISTENT, FLOAT, "0.0", "0.0", 1}},
     {"PedalsOnUI", {PERSISTENT, BOOL, "0", "0", 1}},

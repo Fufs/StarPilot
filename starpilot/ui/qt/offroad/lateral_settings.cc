@@ -43,7 +43,7 @@ StarPilotLateralPanel::StarPilotLateralPanel(StarPilotSettingsWindow *parent, bo
 
     {"AlwaysOnLateral", tr("Always On Lateral"), tr("<b>openpilot's steering remains active even when the accelerator or brake pedals are pressed.</b>"), "../../starpilot/assets/toggle_icons/icon_always_on_lateral.png"},
     {"AlwaysOnLateralLKAS", tr("Enable With LKAS"), tr("<b>Enable \"Always On Lateral\" whenever \"LKAS\" is on, even when openpilot is not engaged.</b>"), ""},
-    {"PauseAOLOnBrake", tr("Pause on Brake Press Below"), tr("<b>Pause \"Always On Lateral\" below the set speed while the brake pedal is pressed.</b>"), ""},
+    {"AlwaysOnLateralPauseOnBrakeSpeed", tr("Pause on Brake Press Below"), tr("<b>Pause \"Always On Lateral\" below the set speed while the brake pedal is pressed.</b>"), ""},
 
     {"LaneChanges", tr("Lane Changes"), tr("<b>Allow openpilot to change lanes.</b>"), "../../starpilot/assets/toggle_icons/icon_lane.png"},
     {"NudgelessLaneChange", tr("Automatic Lane Changes"), tr("<b>When the turn signal is on, openpilot will automatically change lanes.</b> No steering-wheel nudge required!"), ""},
@@ -93,7 +93,7 @@ StarPilotLateralPanel::StarPilotLateralPanel(StarPilotSettingsWindow *parent, bo
         lateralLayout->setCurrentWidget(aolPanel);
       });
       lateralToggle = aolToggle;
-    } else if (param == "PauseAOLOnBrake") {
+    } else if (param == "AlwaysOnLateralPauseOnBrakeSpeed") {
       lateralToggle = new StarPilotParamValueControl(param, title, desc, icon, 0, 99, QString(), std::map<float, QString>(), 1, true);
 
     } else if (param == "LaneChanges") {
@@ -273,7 +273,7 @@ void StarPilotLateralPanel::updateMetric(bool metric, bool bootRun) {
     params.putFloatNonBlocking("LaneDetectionWidth", params.getFloat("LaneDetectionWidth") * distanceConversion);
 
     params.putIntNonBlocking("MinimumLaneChangeSpeed", params.getInt("MinimumLaneChangeSpeed") * speedConversion);
-    params.putIntNonBlocking("PauseAOLOnBrake", params.getInt("PauseAOLOnBrake") * speedConversion);
+    params.putIntNonBlocking("AlwaysOnLateralPauseOnBrakeSpeed", params.getInt("AlwaysOnLateralPauseOnBrakeSpeed") * speedConversion);
     params.putIntNonBlocking("PauseLateralSpeed", params.getInt("PauseLateralSpeed") * speedConversion);
   }
   previousMetric = metric;
@@ -308,20 +308,20 @@ void StarPilotLateralPanel::updateMetric(bool metric, bool bootRun) {
 
   StarPilotParamValueControl *laneWidthToggle = static_cast<StarPilotParamValueControl*>(toggles["LaneDetectionWidth"]);
   StarPilotParamValueControl *minimumLaneChangeSpeedToggle = static_cast<StarPilotParamValueControl*>(toggles["MinimumLaneChangeSpeed"]);
-  StarPilotParamValueControl *pauseAOLOnBrakeToggle = static_cast<StarPilotParamValueControl*>(toggles["PauseAOLOnBrake"]);
+  StarPilotParamValueControl *alwaysOnLateralPauseOnBrakeSpeedToggle = static_cast<StarPilotParamValueControl*>(toggles["AlwaysOnLateralPauseOnBrakeSpeed"]);
   StarPilotParamValueControl *pauseLateralToggle = static_cast<StarPilotParamValueControl*>(toggles["PauseLateralSpeed"]);
 
   if (metric) {
     laneWidthToggle->updateControl(0, 5, metricDistanceLabels);
 
     minimumLaneChangeSpeedToggle->updateControl(0, 150, metricSpeedLabels);
-    pauseAOLOnBrakeToggle->updateControl(0, 150, metricSpeedLabels);
+    alwaysOnLateralPauseOnBrakeSpeedToggle->updateControl(0, 150, metricSpeedLabels);
     pauseLateralToggle->updateControl(0, 150, metricSpeedLabels);
   } else {
     laneWidthToggle->updateControl(0, 15, imperialDistanceLabels);
 
     minimumLaneChangeSpeedToggle->updateControl(0, 99, imperialSpeedLabels);
-    pauseAOLOnBrakeToggle->updateControl(0, 99, imperialSpeedLabels);
+    alwaysOnLateralPauseOnBrakeSpeedToggle->updateControl(0, 99, imperialSpeedLabels);
     pauseLateralToggle->updateControl(0, 99, imperialSpeedLabels);
   }
 }
