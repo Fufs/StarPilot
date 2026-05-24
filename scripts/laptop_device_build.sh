@@ -310,7 +310,13 @@ sync_sysroot_from_device() {
   [[ -n "${host}" ]] || err "setup-sysroot requires <device-host>."
 
   require_cmd rsync
-  mkdir -p "${SYSROOT_DIR}"
+
+  mkdir -p "${SYSROOT_DIR}/usr/local/lib/"
+  mkdir -p "${SYSROOT_DIR}/usr/local/include/"
+  mkdir -p "${SYSROOT_DIR}/lib/aarch64-linux-gnu/"
+  mkdir -p "${SYSROOT_DIR}/usr/lib/aarch64-linux-gnu/"
+  mkdir -p "${SYSROOT_DIR}/usr/include/"
+
   local ssh_cmd="ssh -p ${port} -o StrictHostKeyChecking=accept-new"
 
   rsync -a --delete -e "${ssh_cmd}" "${user}@${host}:/usr/local/lib/" "${SYSROOT_DIR}/usr/local/lib/"
